@@ -5,7 +5,23 @@ body, html {
 
 
 div#message {
+	display: none;
 	text-align: center;
+	padding: 1em;
+    margin: 2% auto;
+	width: 40%;
+}
+
+div#message.good {
+	display: block;
+	background: green;
+	border: 2px dashed darkgreen;
+}
+
+div#message.bad {
+	display: block;
+	background: darkred;
+	border: 2px dashed red;
 }
 
 div#pform {
