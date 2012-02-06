@@ -40,13 +40,18 @@ function returnChange(data) {
 	if (data.error == null) {
 		$("#message").html("<p>Password changed</p>");
 		$("#message").addClass('good');
+		$('#password').get(0).value = '';
+		$('#newpassword1').get(0).value = '';
+		$('#newpassword2').get(0).value = '';
 	} else {
 		$("#message").html("<p>Error "+ data.error + "</p>");
 		$("#message").addClass('bad');
 		$('#changePasswordForm :input').each( function (index,el) {
 			el.disabled = null;
-	});
-
+		});
+		$('#password').get(0).value = '';
+		$('#newpassword1').get(0).value = '';
+		$('#newpassword2').get(0).value = '';
 	}
 
 };
