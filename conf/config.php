@@ -1,7 +1,8 @@
 <?php
 
+// Turn this into a singleton
 class kpassweb_config {
-	$realm = 'LOCAL';
+	//$realm = 'LOCAL';
 }
 
 // Set the desired realm
