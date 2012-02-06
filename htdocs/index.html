@@ -6,6 +6,7 @@
 	<title>Kerberos Web Password</title>
 	<link rel="stylesheet" href="css/kpassweb.css" type="text/css" />
 	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/jquery.json.min.js"></script>
 	<script type="text/javascript" src="js/kpassweb.js"></script>
 	</head>
 <body>
@@ -18,7 +19,7 @@
 
 
 <div id="pform">
-<form>
+<form id="changePasswordForm">
 <label>Username:<input name="user" id="user" type="text"></label>
 <label>Kerberos Realm:<input name="realm" id="realm" type="text"></label>
 <label>Current password:<input name="password" id="password" type="pasword"></label>
