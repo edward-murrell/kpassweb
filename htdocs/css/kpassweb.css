@@ -8,11 +8,22 @@ div#message {
 	text-align: center;
 }
 
-div#form {
+div#pform {
 	background: lightgray;
 	border: 2px dashed red;
 	width: 40%;
 	padding: 1em;
     margin: 18% auto;
-    position: relative;
+	display: block;
 }
+
+div#pform form {
+	text-align: right;
+}
+
+div#pform label {
+    padding-right: 10px;
+    clear: both;
+	display: block;
+}
+
