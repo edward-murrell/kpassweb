@@ -12,7 +12,7 @@ function requestChange(event) {
 	$('#user,#realm,#password').each( function (index,el) {
 		inputdata[el.id] = el.value;
 	});
-	if ($('#newpassword1').get(0).value = $('#newpassword2').get(0).value)
+	if ($('#newpassword1').get(0).value == $('#newpassword2').get(0).value)
 		inputdata["newpassword"] = $('#newpassword1').get(0).value;
 
 	$.ajax(
@@ -32,5 +32,8 @@ function requestChange(event) {
 };
 
 function returnChange(data) {
-	// update message div
+	if (data.error == null)
+		alert ("yay");
+	else
+		alert (data.error);
 };
