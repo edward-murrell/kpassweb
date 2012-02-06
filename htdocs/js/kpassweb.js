@@ -32,8 +32,12 @@ function requestChange(event) {
 };
 
 function returnChange(data) {
-	if (data.error == null)
-		alert ("yay");
-	else
-		alert (data.error);
+	if (data.error == null) {
+		$("#message").html("<p>Password changed</p>");
+		$("#message").addClass('good');
+	} else {
+		$("#message").html("<p>Error "+ data.error + "</p>");
+		$("#message").addClass('bad');
+	}
+
 };
