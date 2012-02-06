@@ -9,7 +9,7 @@
 				throw new Exception($key.' field is empty.');
 		}
 		// Add check against realm here
-		return $this->change_password(	$params['user'],
+		return $this->fake_response(	$params['user'],
 										$params['realm'],
 										'127.0.0.1', // Specify better way to get KDC
 										$params['password'],
@@ -26,6 +26,16 @@
 		kadm5_destroy($handle);
 		return true;
 	}
+
+	private function fake_response ($user,$realm,$kdc, $password,$newpassword) {
+		if (strlen($newpassword) < 4)
+			throw new Exception('Could not change password, perhaps it needs to be more complicated?');
+		if ($password == 'password')
+			return true;
+		throw new Exception('Could not authenticate with current password. Did you type it correctly?');
+	}
+
+
 }
 
 ?>
