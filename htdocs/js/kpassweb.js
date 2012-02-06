@@ -8,8 +8,13 @@ $(document).ready(function() {
 
 function requestChange(event) {
 	// lock form
+	$('#changePasswordForm :input').each( function (index,el) {
+		el.disabled = "disabled";
+	});
+
+	// Retrieve data
 	var inputdata = {};
-	$('#user,#realm,#password').each( function (index,el) {
+	$('#user,#realm,#password,#newpassword1,#newpassword2').each( function (index,el) {
 		inputdata[el.id] = el.value;
 	});
 	if ($('#newpassword1').get(0).value == $('#newpassword2').get(0).value)
@@ -38,6 +43,10 @@ function returnChange(data) {
 	} else {
 		$("#message").html("<p>Error "+ data.error + "</p>");
 		$("#message").addClass('bad');
+		$('#changePasswordForm :input').each( function (index,el) {
+			el.disabled = null;
+	});
+
 	}
 
 };
