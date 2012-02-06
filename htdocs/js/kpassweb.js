@@ -1,7 +1,3 @@
-//$.post(url, [data], [callback])
-//jQuery.post('/rpc', JSON.stringify({method:'echo', params:'Hello
-//World', id:1}), function (data){console.log(data);}, 'json') 
-
 $(document).ready(function() {
 	// TODO -  Grey out change button until passwords the same
    $("#changeButton").click(function(event){
