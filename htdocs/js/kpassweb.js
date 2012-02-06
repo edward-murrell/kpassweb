@@ -3,22 +3,38 @@
 //World', id:1}), function (data){console.log(data);}, 'json') 
 
 $(document).ready(function() {
-alert('ready');
+	// TODO -  Grey out change button until passwords the same
    $("#changeButton").click(function(event){
 		requestChange(event);
 	});
-alert('ready2');
 });
 
 
 function requestChange(event) {
-	alert("hello");
 	// lock form
-	var inputdata = new Array();
-	var callResult = $.getJSON("rpc.php", {"params": inputdata, "method": "update_password", "id": 1}, returnChange(data));
-	// Handle error of callResult here?
+	var inputdata = {};
+	$('#user,#realm,#password').each( function (index,el) {
+		inputdata[el.id] = el.value;
+	});
+	if ($('#newpassword1').get(0).value = $('#newpassword2').get(0).value)
+		inputdata["newpassword"] = $('#newpassword1').get(0).value;
+
+	$.ajax(
+		{
+			url: "rpc.php",
+		    type: "POST",
+		    contentType: "application/json",
+			dataType: "json",
+   		 	data: $.toJSON({"jsonrpc": "2.0",
+							"method": "update_password",
+							"params": [inputdata],
+							"id": 1
+							}),  		
+    		success: function(response) { returnChange(response); }
+		});
+
 };
 
 function returnChange(data) {
-	//display result
+	// update message div
 };
