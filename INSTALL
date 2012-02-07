@@ -17,3 +17,5 @@ You will need to download and install the following libraries;
 
 It is highly reccomended that you set the webroot to htdocs/ instead of
 the root kwebpass/ directory.
+
+Edit the conf/config.php file to set the domains you wish to allow.

@@ -21,6 +21,7 @@ class kpassweb_config {
 		$conf = self::singleton();
 		// TODO - check for realm validity
 		// TODO - check for host validity
+		// TODO - allow ability to give array of hosts
 		$conf->realms[$realm] = $host;
 	}
 	public static function getRealms() {
@@ -36,16 +37,4 @@ class kpassweb_config {
 	}
 
 }
-
-// Set the desired realm
-kpassweb_config::addRealm ('EXAMPLE.COM','localhost');
-kpassweb_config::addRealm ('SUBDOMAIN.EXAMPLE.COM','localhost');
-
-/* $kpassweb_config->addRealm ('MULTI.EXAMPLE.COM',array('10.1.1.1','kdc2.local'));
- * $kpassweb_config->addRealm ('MULTI.EXAMPLE.COM'); // configured via DNS / krb5.conf
- *
- * TODO - Add these methods;
- * $config->getRealms() // returns array of valid realms
- * $config->getKDC($realm);
- */
 ?>
