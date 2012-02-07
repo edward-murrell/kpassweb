@@ -1,10 +1,19 @@
 You will need to download and install the following libraries;
 
-* JSON-RPC PHP
+* PHP KADM5 PECL
+	
+* JSON-RPC PHP (0.17)
 	http://jsonrpcphp.org/download.php?file=tgz&package=light
-* jQuery
-	http://docs.jquery.com/Downloading_jQuery
-* jquery-json plugin
+	Extract the tar into the lib/ directory, this should give you the
+	following required file lib/jsonrpcphp/includes/jsonRPCServer.php
+* jQuery (1.7.1)
+	http://docs.jquery.com/Downloading_jQuery#Download_jQuery
+	Download the the minimized library to htdocs/js/ and rename or 
+	symlink the resulting file to jquery.min.js	
+* jquery-json plugin (2.3)
 	http://code.google.com/p/jquery-json/downloads/list
+	Download the the minimized library to htdocs/js/ and rename or 
+	symlink the resulting file to jquery.json.min.js
 
-Set the DocumentRoot of your webserver to kpassweb/htdocs
+It is highly reccomended that you set the webroot to htdocs/ instead of
+the root kwebpass/ directory.
