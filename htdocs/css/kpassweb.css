@@ -6,6 +6,7 @@ body, html {
 
 div#message {
 	display: none;
+	color: white;
 	text-align: center;
 	padding: 1em;
     margin: 2% auto;
@@ -14,8 +15,8 @@ div#message {
 
 div#message.good {
 	display: block;
-	background: green;
-	border: 2px dashed darkgreen;
+	background: darkgreen;
+	border: 2px dashed white;
 }
 
 div#message.bad {
