@@ -1,7 +1,10 @@
 $(document).ready(function() {
 	// TODO -  Grey out change button until passwords the same
-   $("#changeButton").click(function(event){
+	$("#changeButton").click(function(event){
 		requestChange(event);
+	});
+	$("#newpassword1,#newpassword2").change(function(event){
+		checkNewPass(event);
 	});
 });
 
@@ -68,4 +71,14 @@ function disableForm () {
 		$('#changePasswordForm :input').each( function (index,el) {
 			el.disabled = 'disabled';
 		});
+}
+function checkNewPass (event) {
+	var p1 = $('#newpassword1').get(0).value;
+	var p2 = $('#newpassword2').get(0).value;
+	if (p1 == '' && p2 == '' || p1 == p2) {
+		$('#changeButton').get(0).disabled = null;
+		return;
+	} else {
+		$('#changeButton').get(0).disabled = 'disabled';
+	}
 }
