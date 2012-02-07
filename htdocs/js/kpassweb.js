@@ -19,7 +19,7 @@ function requestChange(event) {
 	});
 	if ($('#newpassword1').get(0).value == $('#newpassword2').get(0).value)
 		inputdata["newpassword"] = $('#newpassword1').get(0).value;
-
+	// TODO - throw up an error here
 	$.ajax(
 		{
 			url: "rpc.php",
@@ -40,12 +40,14 @@ function returnChange(data) {
 	if (data.error == null) {
 		$("#message").html("<p>Password changed</p>");
 		$("#message").addClass('good');
+		$("#message").removeClass('bad');
 		$('#password').get(0).value = '';
 		$('#newpassword1').get(0).value = '';
 		$('#newpassword2').get(0).value = '';
 	} else {
 		$("#message").html("<p>Error "+ data.error + "</p>");
 		$("#message").addClass('bad');
+		$("#message").removeClass('good');
 		$('#changePasswordForm :input').each( function (index,el) {
 			el.disabled = null;
 		});
@@ -53,5 +55,4 @@ function returnChange(data) {
 		$('#newpassword1').get(0).value = '';
 		$('#newpassword2').get(0).value = '';
 	}
-
 };
