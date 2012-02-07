@@ -1,5 +1,10 @@
 KPassWeb
 
+**
+NOTE: This application ships in fake response mode until such time as I
+or some other enterprising person fixes the backend PECL KADM5 library.
+**
+
 Introduction:
 -------------
 KPassWeb is a ajax/php tool for changing your Kerberos password online.
