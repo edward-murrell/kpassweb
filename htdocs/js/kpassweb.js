@@ -3,7 +3,7 @@ $(document).ready(function() {
 	$("#changeButton").click(function(event){
 		requestChange(event);
 	});
-	$("#newpassword1,#newpassword2").change(function(event){
+	$("#newpassword1,#newpassword2").keyup(function(event){
 		checkNewPass(event);
 	});
 });
