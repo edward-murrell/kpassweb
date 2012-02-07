@@ -1,0 +1,22 @@
+KPassWeb
+
+Introduction:
+-------------
+KPassWeb is a ajax/php tool for changing your Kerberos password online.
+
+Installation:
+-------------
+For installation requirements, please see the INSTALL file.
+
+
+Licensing:
+----------
+KPassWeb is licensed under version 3 of the GNU General Public License. See
+the included LICENSE file for more information.
+
+
+Contact:
+--------
+Any bugs, feature requests, comments, criticism or other communication can
+be sent to author Edward Murrell: edward@murrell.co.nz
+

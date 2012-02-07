@@ -1,0 +1,10 @@
+You will need to download and install the following libraries;
+
+* JSON-RPC PHP
+	http://jsonrpcphp.org/download.php?file=tgz&package=light
+* jQuery
+	http://docs.jquery.com/Downloading_jQuery
+* jquery-json plugin
+	http://code.google.com/p/jquery-json/downloads/list
+
+Set the DocumentRoot of your webserver to kpassweb/htdocs
