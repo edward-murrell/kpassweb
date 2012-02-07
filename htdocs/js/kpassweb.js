@@ -7,10 +7,7 @@ $(document).ready(function() {
 
 
 function requestChange(event) {
-	// lock form
-	$('#changePasswordForm :input').each( function (index,el) {
-		el.disabled = "disabled";
-	});
+	disableForm(); // lock form
 
 	// Retrieve data
 	var inputdata = {};
@@ -19,7 +16,11 @@ function requestChange(event) {
 	});
 	if ($('#newpassword1').get(0).value == $('#newpassword2').get(0).value)
 		inputdata["newpassword"] = $('#newpassword1').get(0).value;
-	// TODO - throw up an error here
+	else {
+		setError('New passwords do not match.');
+		enableForm();
+		return false;
+	}
 	$.ajax(
 		{
 			url: "rpc.php",
@@ -45,14 +46,26 @@ function returnChange(data) {
 		$('#newpassword1').get(0).value = '';
 		$('#newpassword2').get(0).value = '';
 	} else {
-		$("#message").html("<p>Error "+ data.error + "</p>");
-		$("#message").addClass('bad');
-		$("#message").removeClass('good');
-		$('#changePasswordForm :input').each( function (index,el) {
-			el.disabled = null;
-		});
+		setError("Error: "+ data.error);
 		$('#password').get(0).value = '';
 		$('#newpassword1').get(0).value = '';
 		$('#newpassword2').get(0).value = '';
+		enableForm();
 	}
 };
+
+function setError(text) {
+		$("#message").html("<p>"+text+"</p>");
+		$("#message").addClass('bad');
+		$("#message").removeClass('good');
+}
+function enableForm () {
+		$('#changePasswordForm :input').each( function (index,el) {
+			el.disabled = null;
+		});
+}
+function disableForm () {
+		$('#changePasswordForm :input').each( function (index,el) {
+			el.disabled = 'disabled';
+		});
+}
