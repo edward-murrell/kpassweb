@@ -1,5 +1,15 @@
 <?php
-	class KPassWeb {
+class KPassWeb {
+
+	private $conf;
+
+	public __construct() {
+		$this->conf = new kpassweb_config();
+	}
+
+	public get_realms($params) {
+		return $conf->getRealms();
+	}
 
 	public function update_password ($params) {
 		foreach (array('user','realm','password','newpassword') as $key) {
