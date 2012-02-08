@@ -13,6 +13,7 @@
 $(document).ready(function() {
 	// TODO - Grey out change button until passwords the same
 	// TODO - Use real id numbers for RPC events
+	// TODO - force check for SSL
 	getRealms();
 	$("#changeButton").click(function(event){
 		requestChange(event);
