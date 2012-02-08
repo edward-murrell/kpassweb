@@ -17,7 +17,7 @@ class KPassWeb {
 		$this->conf = new kpassweb_config();
 	}
 
-	public function get_realms($params) {
+	public function get_realms($params = null) {
 		return $this->conf->getRealms();
 	}
 
