@@ -8,7 +8,7 @@ class KPassWeb {
 	}
 
 	public function get_realms($params) {
-		return $conf->getRealms();
+		return $this->conf->getRealms();
 	}
 
 	public function update_password ($params) {
@@ -18,9 +18,9 @@ class KPassWeb {
 			if (empty($params[$key]))
 				throw new Exception($key.' field is empty.');
 		}
-
-		if ($kdc = $conf->getKDC($realm) == false)
-				throw new Exception($realm.' does not exist on server.');
+		
+		if (($kdc = $this->conf->getKDC($params['realm'])) == false)
+			throw new Exception($params['realm'].' does not exist on server.');
 
 		return $this->fake_response(	$params['user'],
 										$params['realm'],
