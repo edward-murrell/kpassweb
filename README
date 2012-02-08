@@ -3,6 +3,7 @@ KPassWeb
 **
 NOTE: This application ships in fake response mode until such time as I
 or some other enterprising person fixes the backend PECL KADM5 library.
+This functionality can be turned on and off in the conf/config.php file.
 **
 
 Introduction:
