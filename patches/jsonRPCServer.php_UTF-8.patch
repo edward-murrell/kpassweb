@@ -1,0 +1,12 @@
+--- lib/jsonrpcphp.org/includes/jsonRPCServer.php	2008-01-07 09:08:11.000000000 +1100
++++ lib/jsonrpcphp/includes/jsonRPCServer.php	2012-02-08 13:31:21.803222798 +1100
+@@ -40,7 +40,8 @@
+ 		if (
+ 			$_SERVER['REQUEST_METHOD'] != 'POST' || 
+ 			empty($_SERVER['CONTENT_TYPE']) ||
+-			$_SERVER['CONTENT_TYPE'] != 'application/json'
++			$_SERVER['CONTENT_TYPE'] != 'application/json' &&
++			$_SERVER['CONTENT_TYPE'] != 'application/json; charset=UTF-8'
+ 			) {
+ 			// This is not a JSON-RPC request
+ 			return false;

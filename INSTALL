@@ -18,4 +18,12 @@ You will need to download and install the following libraries;
 It is highly reccomended that you set the webroot to htdocs/ instead of
 the root kwebpass/ directory.
 
-Edit the conf/config.php file to set the domains you wish to allow.
+Edit the conf/config.php file to set the realms you wish to allow.
+
+You may need to patch the JSON-RPC PHP library to handle specfically
+Content-type headers specfically set to UTF-8. This can be done by
+running the following command in the root of kpassweb once JSON-RPC PHP
+library has been installed;
+
+# patch -p0 < patches/jsonRPCServer.php_UTF-8.patch
+
