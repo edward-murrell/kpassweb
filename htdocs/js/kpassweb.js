@@ -11,7 +11,9 @@
  */
 
 $(document).ready(function() {
-	// TODO -  Grey out change button until passwords the same
+	// TODO - Grey out change button until passwords the same
+	// TODO - Use real id numbers for RPC events
+	getRealms();
 	$("#changeButton").click(function(event){
 		requestChange(event);
 	});
@@ -92,5 +94,34 @@ function checkNewPass (event) {
 		return;
 	} else {
 		$('#changeButton').get(0).disabled = 'disabled';
+	}
+}
+
+function getRealms() {
+	$.ajax({
+			url: "rpc.php",
+		    type: "POST",
+		    contentType: "application/json",
+			dataType: "json",
+   		 	data: $.toJSON({"jsonrpc": "2.0",
+							"method": "get_realms",
+							"params": [null],
+							"id": 1
+							}),  		
+    		success: function(response) { updateRealms(response); }
+		});
+};
+
+function updateRealms(data) {
+	if (data.result == null) {
+		disableForm();
+		setError('Server has not been configured.');
+	} else {
+		$.each(data.result, function(i, realm) {
+	    	$('#realm')
+        	.append($('<option></option>')
+        	.attr('value',realm)
+        	.text(realm));
+		});
 	}
 }
