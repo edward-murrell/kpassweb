@@ -29,18 +29,22 @@ div#pform {
 	background: lightgray;
 	border: 2px dashed red;
 	width: 40%;
-	padding: 1em;
-    margin: 5% auto 0;
+	padding: 1em 1em 2.5em;
+	margin: 5% auto 0;
 	display: block;
 }
 
-div#pform form {
-	text-align: right;
+div.fieldcontrol {
+	display: block;
+	clear: both;
 }
 
 div#pform label {
-    padding-right: 10px;
-    clear: both;
-	display: block;
+	text-align: right;
+}
+
+div#pform input,select {
+	text-align: left;
+	float: right;
 }
 

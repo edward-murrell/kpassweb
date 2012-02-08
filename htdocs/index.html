@@ -16,16 +16,33 @@
 
 <div id="pform">
 <form id="changePasswordForm">
-<label>Username:<input name="user" id="user" type="text"></label>
-<label>Kerberos Realm:<select name="realm" id="realm"></label>
-<label>Current password:<input name="password" id="password" type="password"></label>
-<label>New Password:<input name="newpassword1" id="newpassword1" type="password"></label>
-<label>Re-enter new password:<input name="newpassword2" id="newpassword2" type="password"></label>
-<label><input name="changeButton" value="Change password" id="changeButton" type="button"></label>
+
+<div class="fieldcontrol">
+	<label for="user">Username:</label><input name="user" id="user" type="text">
+</div>
+<div class="fieldcontrol">
+	<label for="realm">Kerberos Realm:</label>
+	<select name="realm" id="realm"></select>
+</div>
+<div class="fieldcontrol">
+	<label for="newpassword">Current password:</label>
+	<input name="password" id="password" type="password">
+</div>
+<div class="fieldcontrol">
+	<label for="newpassword1">New password:</label>
+	<input name="newpassword1" id="newpassword1" type="password">
+</div>
+<div class="fieldcontrol">
+	<label for="newpassword2">Re-enter new password:</label>
+	<input name="newpassword2" id="newpassword2" type="password">
+</div>
+<div class="fieldcontrol">
+	<input name="changeButton" value="Change password" id="changeButton" type="button">
+</div>
 </form>
 </div>
-<div id="message"></div>
 
+<div id="message"></div>
 
 </body>
 </html>
