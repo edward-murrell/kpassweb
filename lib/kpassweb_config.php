@@ -28,7 +28,7 @@ class kpassweb_config {
 		$conf = self::singleton();
 		return array_keys($conf->realms);
 	}
-	public function getKDC($realm) {
+	public static function getKDC($realm) {
 		$conf = self::singleton();
 		if (!array_key_exists($realm,$conf->realms))
 			return false;
