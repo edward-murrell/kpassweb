@@ -22,7 +22,11 @@ class KPassWeb {
 		if (($kdc = $this->conf->getKDC($params['realm'])) == false)
 			throw new Exception($params['realm'].' does not exist on server.');
 
-		return $this->fake_response(	$params['user'],
+		if ($this->conf->testing())
+			$method = 'fake_response';
+		else
+			$method = 'change_krb_pass';
+		return $this->$method(	$params['user'],
 										$params['realm'],
 										$kdc,
 										$params['password'],

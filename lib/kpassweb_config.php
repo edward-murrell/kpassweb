@@ -5,9 +5,11 @@
 class kpassweb_config {
 	private static $instance;
 	protected $realms;
+	protected $testing;
 
 	public function __construct() {
 		$this->realms = array();
+		$this->testing = false;
 	}
 
     public static function singleton()
@@ -15,6 +17,15 @@ class kpassweb_config {
         if (!isset(self::$instance))
             self::$instance = new kpassweb_config;
         return self::$instance;
+    }
+
+    public static function testing($test = null)
+    {
+		$conf = self::singleton();
+		if ($test == null)
+			return $conf->testing;
+		else
+			$conf->testing = $test;
     }
 
 	public static function addRealm($realm = null, $host = '127.0.0.1') {
