@@ -1,4 +1,14 @@
 <?php
+/* kpassweb.php
+ * JSON RPC PHP handler object to interface with fake and Kerberos backends.
+ *
+ * This file and it's surrounding application is licensed under version 3 of
+ * the GNU General Public License. Further information can be found in the
+ * LICENSE file in the root of this application.
+ *
+ * Copyright Edward Murrell, 2012
+ * edward@murrell.co.nz
+ */
 class KPassWeb {
 
 	private $conf;

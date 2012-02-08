@@ -1,3 +1,15 @@
+/* kpassweb.js
+ * Main jQuery functions to communicate with PHP backend for running password
+ * changes.
+ *
+ * This file and it's surrounding application is licensed under version 3 of
+ * the GNU General Public License. Further information can be found in the
+ * LICENSE file in the root of this application.
+ *
+ * Copyright Edward Murrell, 2012
+ * edward@murrell.co.nz
+ */
+
 $(document).ready(function() {
 	// TODO -  Grey out change button until passwords the same
 	$("#changeButton").click(function(event){

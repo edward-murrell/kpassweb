@@ -1,6 +1,14 @@
 <?php
-/* 
+/* kpassweb_config.php
+ * Provides kpassweb_config singleton object code for configuration
+ * of realms in the kpassweb web application
  *
+ * This file and it's surrounding application is licensed under version 3 of
+ * the GNU General Public License. Further information can be found in the
+ * LICENSE file in the root of this application.
+ *
+ * Copyright Edward Murrell, 2012
+ * edward@murrell.co.nz
  */
 class kpassweb_config {
 	private static $instance;
