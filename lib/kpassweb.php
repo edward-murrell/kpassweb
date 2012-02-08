@@ -3,11 +3,11 @@ class KPassWeb {
 
 	private $conf;
 
-	public __construct() {
+	public function __construct() {
 		$this->conf = new kpassweb_config();
 	}
 
-	public get_realms($params) {
+	public function get_realms($params) {
 		return $conf->getRealms();
 	}
 
@@ -18,10 +18,13 @@ class KPassWeb {
 			if (empty($params[$key]))
 				throw new Exception($key.' field is empty.');
 		}
-		// Add check against realm here
+
+		if ($kdc = $conf->getKDC($realm) == false)
+				throw new Exception($realm.' does not exist on server.');
+
 		return $this->fake_response(	$params['user'],
 										$params['realm'],
-										'127.0.0.1', // Specify better way to get KDC
+										$kdc,
 										$params['password'],
 										$params['newpassword']);
 	}
