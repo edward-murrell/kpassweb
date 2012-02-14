@@ -14,15 +14,26 @@ You will need to download and install the following libraries;
 	http://code.google.com/p/jquery-json/downloads/list
 	Download the the minimized library to htdocs/js/ and rename or 
 	symlink the resulting file to jquery.json.min.js
+* kadm5 (0.2.3)
+	http://pecl.php.net/package/kadm5
+	Download the library from PECL, compile, install and enable in php.ini
+	file for your webserver. This will probably need patching, please see
+	comments below.
 
 It is highly reccomended that you set the webroot to htdocs/ instead of
 the root kwebpass/ directory.
 
 Edit the conf/config.php file to set the realms you wish to allow.
 
-You may need to patch the JSON-RPC PHP library to handle specfically
-Content-type headers specfically set to UTF-8. This can be done by
-running the following command in the root of kpassweb once JSON-RPC PHP
+
+The current version of kadm5 is incompatible with current API of MIT kerberos,
+so a patch in the following path is included to update the PECL kadm5 library; 
+patches/kadm5-0.2.4-1.ekm.20120214.patch
+
+
+You may also need to patch the JSON-RPC PHP library to handle Content-type
+headers specfically set to UTF-8. This can be done by running the following
+command in the root of kpassweb once JSON-RPC PHP
 library has been installed;
 
 # patch -p0 < patches/jsonRPCServer.php_UTF-8.patch
