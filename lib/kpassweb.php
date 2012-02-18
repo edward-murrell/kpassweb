@@ -22,6 +22,7 @@ class KPassWeb {
 	}
 
 	public function update_password ($params) {
+		// TODO - check user and realm are properly seperated
 		foreach (array('user','realm','password','newpassword') as $key) {
 			if (!array_key_exists($key,$params))
 				throw new Exception($key.' field not set.');
@@ -44,7 +45,7 @@ class KPassWeb {
 	}
 
 	private function change_krb_pass ($user,$realm,$kdc, $password,$newpassword) {
-		$handle = kadm5_init_with_password($kdc, $realm, $user, $password);
+		$handle = kadm5_init_with_password($kdc, $realm, $user.'@'.$realm, $password);
 		if ($handle == false)
 			throw new Exception('Could not authenticate with current password. Did you type it correctly?');
 		$result = kadm5_chpass_principal($handle, $user.'@'.$realm, $newpassword);
