@@ -68,7 +68,7 @@ class KPassWeb {
 				'kadm5_init_with_password',
 				'kadm5_chpass_principal',
 				'kadm5_destroy') as $func) {
-			if (!function_exists($func)
+			if (!function_exists($func))
 				throw new Exception('KADM5 Library has not been installed.');
 		}
 	}
