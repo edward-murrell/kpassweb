@@ -1,7 +1,5 @@
 You will need to download and install the following libraries;
 
-* PHP KADM5 PECL
-	
 * JSON-RPC PHP (0.17)
 	http://jsonrpcphp.org/download.php?file=tgz&package=light
 	Extract the tar into the lib/ directory, this should give you the
