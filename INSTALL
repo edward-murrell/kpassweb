@@ -28,7 +28,7 @@ Edit the conf/config.php file to set the realms you wish to allow.
 
 The current version of kadm5 is incompatible with current API of MIT kerberos,
 so a patch in the following path is included to update the PECL kadm5 library; 
-patches/kadm5-0.2.4-1.ekm.20120214.patch
+patches/kadm5-0.2.4-1.ekm.2012020.patch
 
 
 You may also need to patch the JSON-RPC PHP library to handle Content-type
