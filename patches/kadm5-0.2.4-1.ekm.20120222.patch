@@ -1,0 +1,607 @@
+diff -u kadm5-0.2.3//config.m4 kadm5-0.2.4//config.m4
+--- kadm5-0.2.3//config.m4	2003-05-10 00:28:45.000000000 +1000
++++ kadm5-0.2.4//config.m4	2012-02-22 11:33:58.102312755 +1100
+@@ -59,7 +59,6 @@
+   PHP_ADD_LIBRARY_WITH_PATH(gssrpc, /usr/lib, KADM5_SHARED_LIBADD)
+   PHP_ADD_LIBRARY_WITH_PATH(krb5, /usr/lib, KADM5_SHARED_LIBADD)
+   PHP_ADD_LIBRARY_WITH_PATH(k5crypto, /usr/lib, KADM5_SHARED_LIBADD)
+-  PHP_ADD_LIBRARY_WITH_PATH(dyn, /usr/lib, KADM5_SHARED_LIBADD)
+ 
+   PHP_EXTENSION(kadm5, $ext_shared)
+ fi
+diff -u kadm5-0.2.3//CREDITS kadm5-0.2.4//CREDITS
+--- kadm5-0.2.3//CREDITS	2003-05-08 17:48:51.000000000 +1000
++++ kadm5-0.2.4//CREDITS	2012-02-22 11:33:58.098312755 +1100
+@@ -1,2 +1,2 @@
+ kadm5
+-Holger Burbach
++Holger Burbach, Edward Murrell
+Common subdirectories: kadm5-0.2.3//doc and kadm5-0.2.4//doc
+Common subdirectories: kadm5-0.2.3//examples and kadm5-0.2.4//examples
+diff -u kadm5-0.2.3//kadm5.c kadm5-0.2.4//kadm5.c
+--- kadm5-0.2.3//kadm5.c	2003-05-28 20:51:42.000000000 +1000
++++ kadm5-0.2.4//kadm5.c	2012-02-22 11:33:58.098312755 +1100
+@@ -104,7 +104,7 @@
+ 	NULL,
+ 	PHP_MINFO(kadm5),
+ #if ZEND_MODULE_API_NO >= 20010901
+-	"0.2.3",
++	"0.2.4",
+ #endif
+ 	STANDARD_MODULE_PROPERTIES
+ };
+@@ -283,159 +283,160 @@
+ {
+ 	switch( error_code ) {
+ 	case KADM5_FAILURE:
+-		php_error(E_WARNING, "Operation failed for unspecified reason. (KADM5_FAILURE)");
++		php_error_docref(NULL TSRMLS_CC, E_WARNING, "Operation failed for unspecified reason. (KADM5_FAILURE)");
+ 		break;
+ 	case KADM5_AUTH_GET:
+-		php_error(E_WARNING, "Operation requires 'get' privilege. (KADM5_AUTH_GET)");
++		php_error_docref(NULL TSRMLS_CC, E_WARNING, "Operation requires 'get' privilege. (KADM5_AUTH_GET)");
+ 		break;
+ 	case KADM5_AUTH_ADD:
+-		php_error(E_WARNING, "Operation requires 'add' privilege. (KADM5_AUTH_ADD)");
++		php_error_docref(NULL TSRMLS_CC, E_WARNING, "Operation requires 'add' privilege. (KADM5_AUTH_ADD)");
+ 		break;
+ 	case KADM5_AUTH_MODIFY:
+-		php_error(E_WARNING, "Operation requires 'modify' privilege. (KADM5_AUTH_MODIFY)");
++		php_error_docref(NULL TSRMLS_CC, E_WARNING, "Operation requires 'modify' privilege. (KADM5_AUTH_MODIFY)");
+ 		break;
+ 	case KADM5_AUTH_DELETE:
+-		php_error(E_WARNING, "Operation requires 'delete' privilege. (KADM5_AUTH_DELETE)");
++		php_error_docref(NULL TSRMLS_CC, E_WARNING, "Operation requires 'delete' privilege. (KADM5_AUTH_DELETE)");
+ 		break;
+ 	case KADM5_AUTH_INSUFFICIENT:
+-		php_error(E_WARNING, "Insufficient authorization for operation. (KADM5_AUTH_INSUFFICIENT)");
++		php_error_docref(NULL TSRMLS_CC, E_WARNING, "Insufficient authorization for operation. (KADM5_AUTH_INSUFFICIENT)");
+ 		break;
+ 	case KADM5_BAD_DB:
+-		php_error(E_WARNING, "Database inconsistency detected. (KADM5_BAD_DB)");
++		php_error_docref(NULL TSRMLS_CC, E_WARNING, "Database inconsistency detected. (KADM5_BAD_DB)");
+ 		break;
+ 	case KADM5_DUP:
+-		php_error(E_WARNING, "Principal or policy already exists. (KADM5_DUP)");
++		php_error_docref(NULL TSRMLS_CC, E_WARNING, "Principal or policy already exists. (KADM5_DUP)");
+ 		break;
+ 	case KADM5_RPC_ERROR:
+-		php_error(E_WARNING, "Communication failure with server. (KADM5_RPC_ERROR)");
++		php_error_docref(NULL TSRMLS_CC, E_WARNING, "Communication failure with server. (KADM5_RPC_ERROR)");
+ 		break;
+ 	case KADM5_NO_SRV:
+-		php_error(E_WARNING, "No administration server found for realm. (KADM5_NO_SRV)");
++		php_error_docref(NULL TSRMLS_CC, E_WARNING, "No administration server found for realm. (KADM5_NO_SRV)");
+ 		break;
+ 	case KADM5_BAD_HIST_KEY:
+-		php_error(E_WARNING, "Password history principal key version mismatch. (KADM5_BAD_HIST_KEY)");
++		php_error_docref(NULL TSRMLS_CC, E_WARNING, "Password history principal key version mismatch. (KADM5_BAD_HIST_KEY)");
+ 		break;
+ 	case KADM5_NOT_INIT:
+-		php_error(E_WARNING, "Connection to server not initialized. (KADM5_NOT_INIT)");
++		php_error_docref(NULL TSRMLS_CC, E_WARNING, "Connection to server not initialized. (KADM5_NOT_INIT)");
+ 		break;
+ 	case KADM5_UNK_PRINC:
+-		php_error(E_WARNING, "Principal does not exist. (KADM5_UNK_PRINC)");
++		php_error_docref(NULL TSRMLS_CC, E_WARNING, "Principal does not exist. (KADM5_UNK_PRINC)");
+ 		break;
+ 	case KADM5_UNK_POLICY:
+-		php_error(E_WARNING, "Policy does not exist. (KADM5_UNK_POLICY)");
++		php_error_docref(NULL TSRMLS_CC, E_WARNING, "Policy does not exist. (KADM5_UNK_POLICY)");
+ 		break;
+ 	case KADM5_BAD_MASK:
+-		php_error(E_WARNING, "Invalid field mask for operation. (KADM5_BAD_MASK)");
++		php_error_docref(NULL TSRMLS_CC, E_WARNING, "Invalid field mask for operation. (KADM5_BAD_MASK)");
+ 		break;
+ 	case KADM5_BAD_CLASS:
+-		php_error(E_WARNING, "Invalid number of character classes. (KADM5_BAD_CLASS)");
++		php_error_docref(NULL TSRMLS_CC, E_WARNING, "Invalid number of character classes. (KADM5_BAD_CLASS)");
+ 		break;
+ 	case KADM5_BAD_LENGTH:
+-		php_error(E_WARNING, "Invalid password length. (KADM5_BAD_LENGTH)");
++		php_error_docref(NULL TSRMLS_CC, E_WARNING, "Invalid password length. (KADM5_BAD_LENGTH)");
+ 		break;
+ 	case KADM5_BAD_POLICY:
+-		php_error(E_WARNING, "Illegal policy name. (KADM5_BAD_POLICY)");
++		php_error_docref(NULL TSRMLS_CC, E_WARNING, "Illegal policy name. (KADM5_BAD_POLICY)");
+ 		break;
+ 	case KADM5_BAD_PRINCIPAL:
+-		php_error(E_WARNING, "Illegal principal name. (KADM5_BAD_PRINCIPAL)");
++		php_error_docref(NULL TSRMLS_CC, E_WARNING, "Illegal principal name. (KADM5_BAD_PRINCIPAL)");
+ 		break;
+ 	case KADM5_BAD_AUX_ATTR:
+-		php_error(E_WARNING, "Invalid auxiliary attributes. (KADM5_BAD_AUX_ATTR)");
++		php_error_docref(NULL TSRMLS_CC, E_WARNING, "Invalid auxiliary attributes. (KADM5_BAD_AUX_ATTR)");
+ 		break;
+ 	case KADM5_BAD_HISTORY:
+-		php_error(E_WARNING, "Invalid password history count. (KADM5_BAD_HISTORY)");
++		php_error_docref(NULL TSRMLS_CC, E_WARNING, "Invalid password history count. (KADM5_BAD_HISTORY)");
+ 		break;
+ 	case KADM5_BAD_MIN_PASS_LIFE:
+-		php_error(E_WARNING, "Password minimum life is greater then password maximum life. (KADM5_BAD_MIN_PASS_LIFE)");
++		php_error_docref(NULL TSRMLS_CC, E_WARNING, "Password minimum life is greater then password maximum life. (KADM5_BAD_MIN_PASS_LIFE)");
+ 		break;
+ 	case KADM5_PASS_Q_TOOSHORT:
+-		php_error(E_WARNING, "Password is too short. (KADM5_PASS_Q_TOOSHORT)");
++		php_error_docref(NULL TSRMLS_CC, E_WARNING, "Password is too short. (KADM5_PASS_Q_TOOSHORT)");
+ 		break;
+ 	case KADM5_PASS_Q_CLASS:
+-		php_error(E_WARNING, "Password does not contain enough character classes. (KADM5_PASS_Q_CLASS)");
++		php_error_docref(NULL TSRMLS_CC, E_WARNING, "Password does not contain enough character classes. (KADM5_PASS_Q_CLASS)");
+ 		break;
+ 	case KADM5_PASS_Q_DICT:
+-		php_error(E_WARNING, "Password is in the password dictionary. (KADM5_PASS_Q_DICT)");
++		php_error_docref(NULL TSRMLS_CC, E_WARNING, "Password is in the password dictionary. (KADM5_PASS_Q_DICT)");
+ 		break;
+ 	case KADM5_PASS_REUSE:
+-		php_error(E_WARNING, "Cannot reuse password. (KADM5_PASS_REUSE)");
++		php_error_docref(NULL TSRMLS_CC, E_WARNING, "Cannot reuse password. (KADM5_PASS_REUSE)");
+ 		break;
+ 	case KADM5_PASS_TOOSOON:
+-		php_error(E_WARNING, "Current password's minimum life has not expired. (KADM5_PASS_TOOSOON)");
++		php_error_docref(NULL TSRMLS_CC, E_WARNING, "Current password's minimum life has not expired. (KADM5_PASS_TOOSOON)");
+ 		break;
+ 	case KADM5_POLICY_REF:
+-		php_error(E_WARNING, "Policy is in use. (KADM5_POLICY_REF)");
++		php_error_docref(NULL TSRMLS_CC, E_WARNING, "Policy is in use. (KADM5_POLICY_REF)");
+ 		break;
+ 	case KADM5_INIT:
+-		php_error(E_WARNING, "Connection to server already initialized. (KADM5_INIT)");
++		php_error_docref(NULL TSRMLS_CC, E_WARNING, "Connection to server already initialized. (KADM5_INIT)");
+ 		break;
+ 	case KADM5_BAD_PASSWORD:
+-		php_error(E_WARNING, "Incorrect password. (KADM5_BAD_PASS)");
++		php_error_docref(NULL TSRMLS_CC, E_WARNING, "Incorrect password. (KADM5_BAD_PASS)");
+ 		break;
+ 	case KADM5_PROTECT_PRINCIPAL:
+-		php_error(E_WARNING, "Cannot change protected principal. (KADM5_PROTECT_PRINCIPAL)");
++		php_error_docref(NULL TSRMLS_CC, E_WARNING, "Cannot change protected principal. (KADM5_PROTECT_PRINCIPAL)");
+ 		break;
+ 	case KADM5_BAD_SERVER_HANDLE:
+-		php_error(E_WARNING, "Internal error! Bad Admin server handle. (KADM5_BAD_SERVER_HANDLE)");
++		php_error_docref(NULL TSRMLS_CC, E_WARNING, "Internal error! Bad Admin server handle. (KADM5_BAD_SERVER_HANDLE)");
+ 		break;
+ 	case KADM5_BAD_STRUCT_VERSION:
+-		php_error(E_WARNING, "Internal error! Bad API structure version. (KADM5_BAD_STRUCT_VERSION)");
++		php_error_docref(NULL TSRMLS_CC, E_WARNING, "Internal error! Bad API structure version. (KADM5_BAD_STRUCT_VERSION)");
+ 		break;
+ 	case KADM5_OLD_STRUCT_VERSION:
+-		php_error(E_WARNING, "Internal error! API structure version specified by application is no longer supported. (KADM5_OLD_STRUCT_VERSION)");
++		php_error_docref(NULL TSRMLS_CC, E_WARNING, "Internal error! API structure version specified by application is no longer supported. (KADM5_OLD_STRUCT_VERSION)");
+ 		break;
+ 	case KADM5_NEW_STRUCT_VERSION:
+-		php_error(E_WARNING, "Internal error! API structure version specified by application is unknown to libraries. (KADM5_NEW_STRUCT_VERSION)");
++		php_error_docref(NULL TSRMLS_CC, E_WARNING, "Internal error! API structure version specified by application is unknown to libraries. (KADM5_NEW_STRUCT_VERSION)");
+ 		break;
+ 	case KADM5_BAD_API_VERSION:
+-		php_error(E_WARNING, "Internal error! Bad API version. (KADM5_BAD_API_VERSION)");
++		php_error_docref(NULL TSRMLS_CC, E_WARNING, "Internal error! Bad API version. (KADM5_BAD_API_VERSION)");
+ 		break;
+ 	case KADM5_OLD_LIB_API_VERSION:
+-		php_error(E_WARNING, "Internal error! API version specified by application is no longer supported by libraries. (KADM5_OLD_LIB_API_VERSION)");
++		php_error_docref(NULL TSRMLS_CC, E_WARNING, "Internal error! API version specified by application is no longer supported by libraries. (KADM5_OLD_LIB_API_VERSION)");
+ 		break;
+ 	case KADM5_OLD_SERVER_API_VERSION:
+-		php_error(E_WARNING, "Internal error! API version specified by application is no longer supported by server. (KADM5_OLD_SERVER_API_VERSION)");
++		php_error_docref(NULL TSRMLS_CC, E_WARNING, "Internal error! API version specified by application is no longer supported by server. (KADM5_OLD_SERVER_API_VERSION)");
+ 		break;
+ 	case KADM5_NEW_LIB_API_VERSION:
+-		php_error(E_WARNING, "Internal error! API version specified by application is unknown to libraries. (KADM5_NEW_LIB_API_VERSION)");
++		php_error_docref(NULL TSRMLS_CC, E_WARNING, "Internal error! API version specified by application is unknown to libraries. (KADM5_NEW_LIB_API_VERSION)");
+ 		break;
+ 	case KADM5_NEW_SERVER_API_VERSION:
+-		php_error(E_WARNING, "Internal error! API version specified by application is unknown to server. (KADM5_NEW_SERVER_API_VERSION)");
++		php_error_docref(NULL TSRMLS_CC, E_WARNING, "Internal error! API version specified by application is unknown to server. (KADM5_NEW_SERVER_API_VERSION)");
+ 		break;
+ 	case KADM5_SECURE_PRINC_MISSING:
+-		php_error(E_WARNING, "Database error! Required principal missing. (KADM5_SECURE_PRINC_MISSING)");
++		php_error_docref(NULL TSRMLS_CC, E_WARNING, "Database error! Required principal missing. (KADM5_SECURE_PRINC_MISSING)");
+ 		break;
+ 	case KADM5_NO_RENAME_SALT:
+-		php_error(E_WARNING, "The salt type of the specified principal does not support renaming. (KADM5_NO_RENAME_SALT)");
++		php_error_docref(NULL TSRMLS_CC, E_WARNING, "The salt type of the specified principal does not support renaming. (KADM5_NO_RENAME_SALT)");
+ 		break;
+ 	case KADM5_BAD_CLIENT_PARAMS:
+-		php_error(E_WARNING, "Illegal configuration parameter for remote KADM5 client. (KADM5_BAD_CLIENT_PARAMS)");
++		php_error_docref(NULL TSRMLS_CC, E_WARNING, "Illegal configuration parameter for remote KADM5 client. (KADM5_BAD_CLIENT_PARAMS)");
+ 		break;
+ 	case KADM5_BAD_SERVER_PARAMS:
+-		php_error(E_WARNING, "Illegal configuration parameter for local KADM5 client. (KADM5_BAD_SERVER_PARAMS)");
++		php_error_docref(NULL TSRMLS_CC, E_WARNING, "Illegal configuration parameter for local KADM5 client. (KADM5_BAD_SERVER_PARAMS)");
+ 		break;
+ 	case KADM5_AUTH_LIST:
+-		php_error(E_WARNING, "Operation requires 'list' privilege. (KADM5_AUTH_LIST)");
++		php_error_docref(NULL TSRMLS_CC, E_WARNING, "Operation requires 'list' privilege. (KADM5_AUTH_LIST)");
+ 		break;
+ 	case KADM5_AUTH_CHANGEPW:
+-		php_error(E_WARNING, "Operation requires 'change-password' privilege. (KADM5_AUTH_CHANGEPW)");
++		php_error_docref(NULL TSRMLS_CC, E_WARNING, "Operation requires 'change-password' privilege. (KADM5_AUTH_CHANGEPW)");
+ 		break;
+ 	case KADM5_BAD_TL_TYPE:
+-		php_error(E_WARNING, "Internal error! Illegal tagged data list element type. (KADM5_BAD_TL_TYPE)");
++		php_error_docref(NULL TSRMLS_CC, E_WARNING, "Internal error! Illegal tagged data list element type. (KADM5_BAD_TL_TYPE)");
+ 		break;
+ 	case KADM5_MISSING_CONF_PARAMS:
+-		php_error(E_WARNING, "Required parameters in kdc.conf missing. (KADM5_MISSING_CONF_PARAMS)");
++		php_error_docref(NULL TSRMLS_CC, E_WARNING, "Required parameters in kdc.conf missing. (KADM5_MISSING_CONF_PARAMS)");
+ 		break;
+ 	case KADM5_BAD_SERVER_NAME:
+-		php_error(E_WARNING, "Bad krb5 admin server hostname. (KADM5_BAD_SERVER_NAME)");
++		php_error_docref(NULL TSRMLS_CC, E_WARNING, "Bad krb5 admin server hostname. (KADM5_BAD_SERVER_NAME)");
+ 		break;
+ 	case KADM5_AUTH_SETKEY:
+-		php_error(E_WARNING, "Operation requires 'set-key' privilege. (KADM5_AUTH_SETKEY)");
++		php_error_docref(NULL TSRMLS_CC, E_WARNING, "Operation requires 'set-key' privilege. (KADM5_AUTH_SETKEY)");
+ 		break;
+ 	case KADM5_SETKEY_DUP_ENCTYPES:
+-		php_error(E_WARNING, "Multiple values for single or folded enctype. (KADM5_SETKEY_DUP_ENCTYPES)");
++		php_error_docref(NULL TSRMLS_CC, E_WARNING, "Multiple values for single or folded enctype. (KADM5_SETKEY_DUP_ENCTYPES)");
+ 		break;
+ 	default:
++		break;
+ 	}
+ }
+ /* }}} */
+@@ -450,14 +451,16 @@
+ 	kadm5_config_params params;
+ 	void *handle = NULL;
+ 	kadm5_ret_t rc;
++	krb5_error_code rv;
++	krb5_context ctx;
++	char **db_args = NULL;
+ 
+ 	memset((char *) &params, 0, sizeof(params));
+ 
+-	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "ssss", 
+-							  &admin_server, &admin_server_len,
+-							  &realm, &realm_len, &princstr, &princstr_len, 
+-							  &password, &password_len) == FAILURE) {
+-		WRONG_PARAM_COUNT;
++	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "ssss",
++		&admin_server, &admin_server_len, &realm, &realm_len,
++		&princstr, &princstr_len, &password, &password_len) == FAILURE) {
++		RETURN_FALSE;
+ 	}
+ 
+ 	params.realm = realm;
+@@ -465,13 +468,22 @@
+ 	params.admin_server = admin_server;
+ 	params.mask |= KADM5_CONFIG_ADMIN_SERVER;
+ 
+-	rc = kadm5_init_with_password(princstr,
+-								  password,
+-								  KADM5_ADMIN_SERVICE,
+-								  &params,
+-								  KADM5_STRUCT_VERSION,
+-								  KADM5_API_VERSION_2,
+-								  &handle);
++	rv = krb5_init_context(&ctx);
++	if (rv) {
++		php_error_docref(NULL TSRMLS_CC, E_WARNING, "Error while initializing krb5 library");
++		RETURN_FALSE;        
++	}
++
++	rc = kadm5_init_with_password(
++	ctx,
++	princstr,
++	password,
++	KADM5_CHANGEPW_SERVICE,
++	&params,
++	KADM5_STRUCT_VERSION,
++	KADM5_API_VERSION_3,
++	db_args,
++	&handle);
+ 
+ 	if (rc) {
+ 		kadm5_error(rc);
+@@ -479,7 +491,7 @@
+ 	}
+ 
+ 	if (handle == NULL) {
+-		php_error(E_WARNING, "Internal error! handle == NULL!");
++	        php_error_docref(NULL TSRMLS_CC, E_WARNING, "Internal error! handle == NULL!");
+ 		RETURN_FALSE;
+ 	}
+ 
+@@ -492,16 +504,21 @@
+    Closes the connection to the admin server and releases all related resources. */
+ PHP_FUNCTION(kadm5_destroy)
+ {
+-	zval **link;
++	zval *link;
+ 	void *handle;
++	kadm5_ret_t rc;
+ 
+-	if (ZEND_NUM_ARGS() != 1 || zend_get_parameters_ex(1, &link ) == FAILURE) {
+-		WRONG_PARAM_COUNT;
+-	}
++	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "z", &link) == FAILURE)
++		RETURN_NULL();
+ 
+-	ZEND_FETCH_RESOURCE(handle, void *, link, -1, HANDLE_ID, le_handle);
++	ZEND_FETCH_RESOURCE(handle, void *, &link, -1, HANDLE_ID, le_handle);
++	rc = kadm5_destroy(handle);
++
++	if (rc) {
++		kadm5_error(rc);
++		RETURN_FALSE;
++	}
+ 
+-	zend_list_delete((*link)->value.lval);
+ 	RETURN_TRUE;
+ }
+ /* }}} */
+@@ -511,16 +528,15 @@
+    Flush all changes to the Kerberos database, leaving the connection to the Kerberos admin server open. */
+ PHP_FUNCTION(kadm5_flush)
+ {
+-	zval **link;
++	zval *link;
+ 	void *handle;
+ 	kadm5_ret_t rc;
+ 
+-	if (ZEND_NUM_ARGS() != 1 || zend_get_parameters_ex(1, &link ) == FAILURE) {
+-		WRONG_PARAM_COUNT;
+-	}
+-
+-	ZEND_FETCH_RESOURCE(handle, void *, link, -1, HANDLE_ID, le_handle);
++	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "z", &link)
++	 == FAILURE)
++		RETURN_NULL();
+ 
++	ZEND_FETCH_RESOURCE(handle, void *, &link, -1, HANDLE_ID, le_handle);
+ 	rc = kadm5_flush(handle);
+ 
+ 	if (rc) {
+@@ -596,7 +612,7 @@
+ 	rc = krb5_init_context(&context);
+ 
+ 	if (rc) {
+-		php_error(E_WARNING, "Error while initializing krb5 library");
++		php_error_docref(NULL TSRMLS_CC, E_WARNING, "Error while initializing krb5 library");
+ 		RETURN_FALSE;
+ 	}
+ 
+@@ -605,7 +621,7 @@
+ 	rc = krb5_parse_name(context, princstr, &princ.principal);
+ 
+ 	if (rc) {
+-		php_error(E_WARNING, "Error parsing principal %s.", princstr);
++		php_error_docref(NULL TSRMLS_CC, E_WARNING, "Error parsing principal %s.", princstr);
+ 		krb5_free_context(context);
+ 		RETURN_FALSE;
+ 	}
+@@ -618,12 +634,12 @@
+ 	 */
+ 	if ((! (mask & KADM5_POLICY)) && (! (mask & KADM5_POLICY_CLR))) {
+ 		if (! kadm5_get_policy(handle, "default", &defpol)) {
+-			php_error(E_WARNING, "No policy specified for %s; assigning \"default\"", princstr);
++			php_error_docref(NULL TSRMLS_CC, E_WARNING, "No policy specified for %s; assigning \"default\"", princstr);
+ 			princ.policy = "default";
+ 			mask |= KADM5_POLICY;
+ 			(void) kadm5_free_policy_ent(handle, &defpol);
+ 		} else {
+-			php_error(E_WARNING, "No policy specified for %s; defaulting to no policy", princstr);
++			php_error_docref(NULL TSRMLS_CC, E_WARNING, "No policy specified for %s; defaulting to no policy", princstr);
+ 		}
+ 	}
+ 	mask &= ~KADM5_POLICY_CLR;
+@@ -657,7 +673,7 @@
+ 			}
+ 
+ 			if (Z_TYPE_P(key) == IS_LONG) {
+-				php_error(E_WARNING, "Key (%d) is not a string-value. Ignored.", Z_LVAL_P(key));
++				php_error_docref(NULL TSRMLS_CC, E_WARNING, "Key (%d) is not a string-value. Ignored.", Z_LVAL_P(key));
+ 			} else if (! strcmp(Z_STRVAL_P(key), OP_PRINC_EXPIRE_TIME)) {
+ 				convert_to_long(*data);
+ 				princ.princ_expire_time = Z_LVAL_PP(data);
+@@ -693,7 +709,7 @@
+ 				mask |= KADM5_ATTRIBUTES;
+ 			} else {
+ 				convert_to_string(*data);
+-				php_error(E_WARNING, "Option (%s=%s) not implemented. Ignored.", Z_STRVAL_P(key), Z_STRVAL_PP(data));
++				php_error_docref(NULL TSRMLS_CC, E_WARNING, "Option (%s=%s) not implemented. Ignored.", Z_STRVAL_P(key), Z_STRVAL_PP(data));
+ 			}
+ 
+ 			zend_hash_move_forward_ex(options_hash, &pos);
+@@ -764,13 +780,9 @@
+ 
+ 	memset(&princ, 0, sizeof(princ));
+ 
+-	if (ZEND_NUM_ARGS() != 3) {
+-		WRONG_PARAM_COUNT;
+-	}
+-
+ 	if (zend_parse_parameters(ZEND_NUM_ARGS() TSRMLS_CC, "zss", &link,
+ 							 &princstr, &princstr_len, &password, &password_len) == FAILURE) {
+-		WRONG_PARAM_COUNT;
++		RETURN_FALSE;
+ 	}
+ 
+ 	ZEND_FETCH_RESOURCE(handle, void *, &link, -1, HANDLE_ID, le_handle);
+@@ -778,14 +790,14 @@
+ 	rc = krb5_init_context(&context);
+ 
+ 	if (rc) {
+-		php_error(E_WARNING, "Error while initializing krb5 library");
++		php_error_docref(NULL TSRMLS_CC, E_WARNING, "Error while initializing krb5 library");
+ 		RETURN_FALSE;
+ 	}
+ 
+ 	rc = krb5_parse_name(context, princstr, &princ);
+ 
+ 	if (rc) {
+-		php_error(E_WARNING, "Error parsing principal.");
++		php_error_docref(NULL TSRMLS_CC, E_WARNING, "Error parsing principal.");
+ 		krb5_free_context(context);
+ 		RETURN_FALSE;
+ 	}
+@@ -832,14 +844,14 @@
+ 	rc = krb5_init_context(&context);
+ 
+ 	if( rc ) {
+-		php_error(E_WARNING, "Error while initializing krb5 library");
++		php_error_docref(NULL TSRMLS_CC, E_WARNING, "Error while initializing krb5 library");
+ 		RETURN_FALSE;
+ 	}
+ 
+ 	rc = krb5_parse_name(context, princstr, &princ);
+ 
+ 	if( rc ) {
+-		php_error(E_WARNING, "Error parsing principal.");
++		php_error_docref(NULL TSRMLS_CC, E_WARNING, "Error parsing principal.");
+ 		krb5_free_context(context);
+ 		RETURN_FALSE;
+ 	}
+@@ -901,7 +913,7 @@
+ 	rc = krb5_init_context(&context);
+ 
+ 	if (rc) {
+-		php_error(E_WARNING, "Error while initializing krb5 library");
++		php_error_docref(NULL TSRMLS_CC, E_WARNING, "Error while initializing krb5 library");
+ 		RETURN_FALSE;
+ 	}
+ 
+@@ -910,7 +922,7 @@
+ 	rc = krb5_parse_name(context, princstr, &princ.principal);
+ 
+ 	if (rc) {
+-		php_error(E_WARNING, "Error parsing principal %s.", princstr);
++		php_error_docref(NULL TSRMLS_CC, E_WARNING, "Error parsing principal %s.", princstr);
+ 		krb5_free_context(context);
+ 		RETURN_FALSE;
+ 	}
+@@ -944,7 +956,7 @@
+ 			}
+ 
+ 			if (Z_TYPE_P(key) == IS_LONG) {
+-				php_error(E_WARNING, "Key (%d) is not a string-value. Ignored.", Z_LVAL_P(key));
++				php_error_docref(NULL TSRMLS_CC, E_WARNING, "Key (%d) is not a string-value. Ignored.", Z_LVAL_P(key));
+ 			} else if (!strcmp(Z_STRVAL_P(key), OP_PRINC_EXPIRE_TIME)) {
+ 				convert_to_long(*data);
+ 				princ.princ_expire_time = Z_LVAL_PP(data);
+@@ -982,7 +994,7 @@
+ 				mask |= KADM5_ATTRIBUTES;
+ 			} else {
+ 				convert_to_string(*data);
+-				php_error(E_WARNING, "Option (%s=%s) not implemented. Ignored.", Z_STRVAL_P(key), Z_STRVAL_PP(data));
++				php_error_docref(NULL TSRMLS_CC, E_WARNING, "Option (%s=%s) not implemented. Ignored.", Z_STRVAL_P(key), Z_STRVAL_PP(data));
+ 			}
+ 
+ 			zend_hash_move_forward_ex(options_hash, &pos);
+@@ -1086,14 +1098,14 @@
+ 	rc = krb5_init_context(&context);
+ 
+ 	if (rc) {
+-		php_error(E_WARNING, "Error while initializing krb5 library");
++		php_error_docref(NULL TSRMLS_CC, E_WARNING, "Error while initializing krb5 library");
+ 		RETURN_FALSE;
+ 	}
+ 
+ 	rc = krb5_parse_name(context, princstr, &princ);
+ 
+ 	if (rc) {
+-		php_error(E_WARNING, "Error parsing principal.");
++		php_error_docref(NULL TSRMLS_CC, E_WARNING, "Error parsing principal.");
+ 		krb5_free_context(context);
+ 		RETURN_FALSE;
+ 	}
+@@ -1108,7 +1120,7 @@
+ 	rc = krb5_unparse_name(context, ent.principal, &principal);
+ 
+ 	if (rc) {
+-		php_error(E_WARNING, "Error unparsing principal name.");
++		php_error_docref(NULL TSRMLS_CC, E_WARNING, "Error unparsing principal name.");
+ 		krb5_free_context(context);
+ 		RETURN_FALSE;
+ 	}
+@@ -1116,7 +1128,7 @@
+ 	rc = krb5_unparse_name(context, ent.mod_name, &mod_name);
+ 
+ 	if (rc) {
+-		php_error(E_WARNING, "Error unparsing mod_name.");
++		php_error_docref(NULL TSRMLS_CC, E_WARNING, "Error unparsing mod_name.");
+ 		free(principal);
+ 		krb5_free_context(context);
+ 		RETURN_FALSE;
+diff -u kadm5-0.2.3//package.xml kadm5-0.2.4//package.xml
+--- kadm5-0.2.3//package.xml	2003-06-03 18:19:47.000000000 +1000
++++ kadm5-0.2.4//package.xml	2012-02-22 11:33:58.098312755 +1100
+@@ -17,18 +17,24 @@
+       <email>holger.burbach@gonicus.de</email>
+       <role>lead</role>
+     </maintainer>
++    <maintainer>
++      <user>edward.murrell</user>
++      <name>Edward Murrell</name>
++      <email>edward@murrell.co.nz</email>
++      <role>developer</role>
++    </maintainer>
+   </maintainers>
+ 
+   <license>LGPL</license>
+ 
+   <release>
+-    <version>0.2.3</version>
+-    <date>2003-05-22</date>
++    <version>0.2.4</version>
++    <date>2012-02-21</date>
+     <state>alpha</state>
+     <notes>
+-      - Release 0.2.3
+-      - Code cleanup (CODING_STANDARDS)
+-      - Throwing E_WARNINGs instead of E_ERRORs
++    - Release 0.2.4
++    - Updated to support MIT Kerberos 1.8
++    - Removed use of deprecated ZEND API functions
+     </notes>
+   </release>
+ 
+@@ -60,6 +66,18 @@
+   <changelog>
+ 
+     <release>
++      <version>0.2.4</version>
++      <date>2012-02-21</date>
++      <state>alpha</state>
++      <notes>
++      - Release 0.2.4
++      - Updated to support MIT Kerberos 1.8
++      - Removed use of deprecated ZEND API functions
++      </notes>
++    </release>
++
++
++    <release>
+       <version>0.2.3</version>
+       <date>2003-05-22</date>
+       <state>alpha</state>
+diff -u kadm5-0.2.3//README kadm5-0.2.4//README
+--- kadm5-0.2.3//README	2003-06-03 18:31:10.000000000 +1000
++++ kadm5-0.2.4//README	2012-02-22 11:33:58.102312755 +1100
+@@ -1,18 +1,15 @@
+-Well, the config.m4 file is still a mess. Unfortenately there is no
+-libkadm55-dev debian package yet. So you have to have the krb5 sources
+-at hand and change config.m4 accordingly.
++This is mostly Holger Burbach's work. I've brought it up to date to work with
++MIT Kerberos 1.8.x, but there's some work to go before it works with heimdal,
++which has it's own API.
+ 
+-To successfully compile this extension under Debian you need the
++To successfully compile this extension under Debian/Ubuntu you need the
+ following Kerberos packages:
+ 
+ libkrb5
+ libkrb5-dev
+ libkadm55
+-
+-The missing of libkadm55-dev has already been reported to the libkadm55
+-maintainer: http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=191616
++libkadm5clnt-mit7
+ 
+ If there are any questions or problems, feel free to contact me:
+ 
+-Holger Burbach <holger.burbach@gonicus.de>
+-
++Edward Murrell <edward@murrell.co.nz>
+Common subdirectories: kadm5-0.2.3//tests and kadm5-0.2.4//tests
